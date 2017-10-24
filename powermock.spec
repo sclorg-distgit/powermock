@@ -3,9 +3,10 @@
 
 Name:           %{?scl_prefix}powermock
 Version:        1.6.5
-Release:        5.2%{?dist}
+Release:        5.3%{?dist}
 Summary:        A Java mocking framework
 
+# Note: api-mockito subpackage is ASL 2.0 and MIT, the rest is ASL 2.0
 License:        ASL 2.0
 URL:            https://github.com/jayway/powermock
 Source0:        https://github.com/jayway/%{pkg_name}/archive/%{pkg_name}-%{version}.tar.gz
@@ -88,6 +89,9 @@ Requires:       %{name}-common = %{version}-%{release}
 This package contains support code for the PowerMock API extensions.
 
 %package api-mockito
+# Bundles forked mockito, which is under MIT
+License:        ASL 2.0 and MIT
+Provides:       bundled(mockito) = 2.0
 Summary:        PowerMock Mockito API module
 Requires:       %{name}-common = %{version}-%{release}
 
@@ -198,6 +202,7 @@ sed -i '/shouldLoadClassAndOverrideMethodGreaterThanJvmLimit/i@org.junit.Ignore'
 %files api-support -f .mfiles-api-support
 
 %files api-mockito -f .mfiles-api-mockito
+%license api/mockito2/src/main/java/org/powermock/api/mockito/repackaged/Mockito-LICENSE.txt
 
 %files api-easymock -f .mfiles-api-easymock
 
@@ -207,6 +212,9 @@ sed -i '/shouldLoadClassAndOverrideMethodGreaterThanJvmLimit/i@org.junit.Ignore'
 %license LICENSE.txt
 
 %changelog
+* Mon Aug 14 2017 Michael Simacek <msimacek@redhat.com> - 1.6.5-5.3
+- Add license and provides for bundled mockito
+
 * Thu Jun 22 2017 Michael Simacek <msimacek@redhat.com> - 1.6.5-5.2
 - Mass rebuild 2017-06-22
 
